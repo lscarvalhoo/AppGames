@@ -15,7 +15,5 @@ namespace AppCadastro.Service
         Task Refresh(Guid id, GameInputModel game);
         Task Refresh(Guid id, double price);
         Task Remove(Guid id);
-
-
     }
 }
