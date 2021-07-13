@@ -1,4 +1,5 @@
-﻿using AppCadastro.InputModel;
+﻿using AppCadastro.Exceptions;
+using AppCadastro.InputModel;
 using AppCadastro.Service;
 using AppCadastro.ViewModel;
 using Microsoft.AspNetCore.Http;
@@ -51,10 +52,9 @@ namespace AppCadastro.Controllers.V1
                 var game = await _gameService.Insert(gameInputModel);
                 return Ok(game);
             }
-            //catch (GameExistExecption ex)
-            catch (Exception ex)
+            catch (GameExistException ex)
             {
-                return UnprocessableEntity("This game already exist !");
+                return UnprocessableEntity(ex);
             }
 
         }
@@ -67,10 +67,9 @@ namespace AppCadastro.Controllers.V1
                 await _gameService.Refresh(idGame, game);
                 return Ok();
             }
-            //catch (GameNotExistException ex)
-            catch (Exception ex)
+            catch (GameNotExistException ex)
             {
-                return NotFound("This game not exist !");
+                return NotFound(ex);
             }
         }
 
@@ -82,10 +81,9 @@ namespace AppCadastro.Controllers.V1
                 await _gameService.Refresh(idGame, price);
                 return Ok();
             }
-            //catch (GameNotExistException ex)
-            catch (Exception ex)
+            catch (GameNotExistException ex)
             {
-                return NotFound("This game not exist !");
+                return NotFound(ex);
             }
         }
 
@@ -97,10 +95,9 @@ namespace AppCadastro.Controllers.V1
                 await _gameService.Remove(idGame);
                 return Ok();
             }
-            //catch (GameNotExistException ex)
-            catch (Exception ex)
+            catch (GameNotExistException ex)
             {
-                return NotFound("This game not exist !");
+                return NotFound(ex);
             }
         }
 
