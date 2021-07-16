@@ -53,9 +53,11 @@ namespace AppCadastro.Repositories
             games.Remove(id);
             return Task.CompletedTask;
         }
+
         public void Dispose()
         {
             //throw new NotImplementedException();
+            //CLOSE CONNECTION
         }
     }
 }

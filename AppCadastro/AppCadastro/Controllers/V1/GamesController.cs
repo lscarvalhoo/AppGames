@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AppCadastro.Controllers.V1
 {
-    [Route("api/V1/Games")]
+    [Route("api/V1/[controller]")]
     [ApiController]
     public class GamesController : ControllerBase
     {
@@ -34,7 +34,7 @@ namespace AppCadastro.Controllers.V1
             return Ok(games);
         }
 
-        [HttpGet("{idGame : guid}")]
+        [HttpGet("{idGame:guid}")]
         public async Task<ActionResult<List<GameViewModel>>> Get([FromRoute] Guid idGame)
         {
             var game = await _gameService.Get(idGame);
@@ -56,10 +56,9 @@ namespace AppCadastro.Controllers.V1
             {
                 return UnprocessableEntity(ex);
             }
-
         }
 
-        [HttpPut("{idGame : guid}")]
+        [HttpPut("{idGame:guid}")]
         public async Task<ActionResult> RefreshGame([FromRoute] Guid idGame, [FromBody] GameInputModel game)
         {
             try
@@ -73,7 +72,7 @@ namespace AppCadastro.Controllers.V1
             }
         }
 
-        [HttpPatch("{idGame : guid}/price/{price:double}")]
+        [HttpPatch("{idGame:guid}/price/{price:double}")]
         public async Task<ActionResult> RefreshGame([FromRoute] Guid idGame, [FromRoute] double price)
         {
             try

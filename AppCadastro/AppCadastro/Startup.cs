@@ -1,3 +1,6 @@
+using AppCadastro.Controllers.V1;
+using AppCadastro.Repositories;
+using AppCadastro.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,12 +29,20 @@ namespace AppCadastro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameRepository, GameSqlServerRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AppCadastro", Version = "v1" });
             });
+
+            #region LifeCycle
+            services.AddSingleton<IExempleSingleton, ExempleLifeCycle>();
+            services.AddScoped<IExempleSingleton, ExempleLifeCycle>();
+            services.AddTransient<IExempleSingleton, ExempleLifeCycle>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
